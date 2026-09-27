@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your account — Foliage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'store/styles.css' %}" />
+  <style>
+    .auth-page { max-width: 560px; margin: 64px auto; padding: 0 24px; }
+    .auth-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .auth-nav .btn { padding: 0.6em 1.2em; font-size: 0.86rem; }
+    .auth-page h1 { margin: 0 0 6px; font-size: 1.9rem; }
+    .account-meta { color: #6B756E; margin-bottom: 28px; }
+    .account-meta a { text-decoration: underline; }
+    .order-card {
+      border: 1px solid var(--stone-line);
+      border-radius: var(--radius-m);
+      padding: 16px 20px;
+      margin-bottom: 14px;
+    }
+    .order-card-head {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .order-card ul { margin: 0; padding-left: 1.1em; color: #445048; font-size: 0.92rem; }
+    .empty-state { color: #6B756E; }
+    .link-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      font: inherit;
+      color: inherit;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-nav">
+      <a href="{% url 'index' %}" class="logo">Foliage</a>
+      <a href="{% url 'index' %}" class="btn btn-ghost">Continue shopping</a>
+    </div>
+    <h1>Hi, {{ user.username }}</h1>
+    <p class="account-meta">{{ user.email }} ·
+      <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="link-btn">Log out</button>
+      </form>
+    </p>
+
+    <h2>Your orders</h2>
+    {% if orders %}
+      {% for order in orders %}
+        <div class="order-card">
+          <div class="order-card-head">
+            <span>Order #{{ order.id }}</span>
+            <span>${{ order.total }}</span>
+          </div>
+          <p style="margin: 0 0 8px; color: #6B756E; font-size: 0.85rem;">{{ order.created_at|date:"M j, Y" }}</p>
+          <ul>
+            {% for item in order.items.all %}
+              <li>{{ item.quantity }} × {{ item.product.name }} — ${{ item.line_total }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="empty-state">No orders yet — once you check out, they'll show up here.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

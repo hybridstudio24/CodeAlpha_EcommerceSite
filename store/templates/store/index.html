@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foliage — Plants & Home Goods</title>
+  <meta name="description" content="Foliage: houseplants, pots, and tools for people who garden indoors." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{% static 'store/styles.css' %}" />
+</head>
+<body>
+
+  <!-- Announcement bar -->
+  <div class="announce">Free shipping on orders over $60 — ends Sunday</div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <a href="/" class="logo">Foliage</a>
+
+      <nav class="primary-nav" aria-label="Primary">
+        <a href="#shop">Plants</a>
+        <a href="#shop">Pots &amp; Planters</a>
+        <a href="#shop">Tools</a>
+        <a href="#journal">Journal</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="searchToggle" aria-label="Search" aria-expanded="false" aria-controls="searchBar">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="21" y1="21" x2="16.2" y2="16.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <a href="{% if user.is_authenticated %}{% url 'account' %}{% else %}{% url 'login' %}{% endif %}" class="icon-btn" aria-label="Account">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="8" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20c1.8-4 4.6-6 7.5-6s5.7 2 7.5 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </a>
+        <button class="icon-btn cart-btn" id="cartToggle" aria-label="Open cart" aria-expanded="false" aria-controls="cartDrawer">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 8h12l-1.2 11.2a1.6 1.6 0 0 1-1.6 1.4H8.8a1.6 1.6 0 0 1-1.6-1.4L6 8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Expandable search bar -->
+    <div class="search-bar" id="searchBar">
+      <div class="search-bar-inner">
+        <input type="text" placeholder="Search for plants, pots, tools…" aria-label="Search products" />
+        <button class="btn btn-text" id="searchClose">Close</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile nav -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <a href="#shop">Plants</a>
+    <a href="#shop">Pots &amp; Planters</a>
+    <a href="#shop">Tools</a>
+    <a href="#journal">Journal</a>
+    <a href="/account">Account</a>
+  </nav>
+
+  <main id="mainContent">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="hero-kicker">New for autumn</p>
+        <h1>Bring something<br>green indoors.</h1>
+        <p class="hero-sub">Low-maintenance houseplants, hand-thrown pots, and the few tools worth owning — chosen for small apartments and first-time growers alike.</p>
+        <div class="hero-actions">
+          <a href="#shop" class="btn btn-primary">Shop the collection</a>
+          <a href="#guide" class="btn btn-ghost">Find your plant match</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-blob"></div>
+        <svg class="hero-plant" viewBox="0 0 320 380" fill="none">
+          <ellipse cx="160" cy="350" rx="70" ry="14" fill="currentColor" opacity="0.08"/>
+          <path d="M130 340 L140 220 Q142 210 152 208 L170 205" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <path d="M140 240 C110 220 95 190 100 150 C140 160 160 195 160 240 Z" fill="currentColor" opacity="0.85"/>
+          <path d="M148 210 C168 185 200 178 230 195 C210 220 178 228 150 214 Z" fill="currentColor" opacity="0.6"/>
+          <path d="M155 260 C185 245 215 250 235 275 C205 290 175 285 155 265 Z" fill="currentColor" opacity="0.72"/>
+          <rect x="105" y="330" width="110" height="70" rx="6" fill="currentColor" opacity="0.9"/>
+          <rect x="95" y="320" width="130" height="20" rx="4" fill="currentColor"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Category strip -->
+    <section class="category-strip" aria-label="Shop by category">
+      <a href="#shop" class="category-card">
+        <div class="category-swatch swatch-a"></div>
+        <span>Houseplants</span>
+      </a>
+      <a href="#shop" class="category-card">
+        <div class="category-swatch swatch-b"></div>
+        <span>Pots &amp; Planters</span>
+      </a>
+      <a href="#shop" class="category-card">
+        <div class="category-swatch swatch-c"></div>
+        <span>Tools &amp; Care</span>
+      </a>
+      <a href="#shop" class="category-card">
+        <div class="category-swatch swatch-d"></div>
+        <span>Gift Sets</span>
+      </a>
+    </section>
+
+    <!-- Product grid -->
+    <section class="shop-section" id="shop">
+      <div class="section-head">
+        <h2>Best sellers this month</h2>
+        <a href="#" class="btn btn-text">View all</a>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <!-- Product cards are rendered here by script.js -->
+      </div>
+    </section>
+
+    <!-- Value props -->
+    <section class="value-props">
+      <div class="value-item">
+        <h3>Grown to travel well</h3>
+        <p>Every plant ships in a fitted box with moisture packs, so it arrives the way it left the nursery.</p>
+      </div>
+      <div class="value-item">
+        <h3>30-day guarantee</h3>
+        <p>If a plant doesn't take to its new home within a month, we'll replace it — no questions asked.</p>
+      </div>
+      <div class="value-item">
+        <h3>Care notes included</h3>
+        <p>Every order comes with a printed card covering light, water, and repotting for that exact plant.</p>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="journal">
+      <div class="newsletter-inner">
+        <h2>Get plant care notes in your inbox</h2>
+        <p>One email a month. Seasonal care tips, new arrivals, no clutter.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <label for="newsletterEmail" class="sr-only">Email address</label>
+          <input type="email" id="newsletterEmail" placeholder="you@example.com" required />
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+        <p class="newsletter-msg" id="newsletterMsg" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Cart drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="cart-header">
+      <h2>Your cart</h2>
+      <button class="icon-btn" id="cartClose" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" width="18" height="18"><line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty">Your cart is empty.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00</span>
+      </div>
+      <button class="btn btn-primary btn-block" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p class="logo">Foliage</p>
+        <p>Indoor plants and the goods that go with them.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#shop">Houseplants</a>
+        <a href="#shop">Pots &amp; Planters</a>
+        <a href="#shop">Tools</a>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+        <a href="#">Plant care</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Foliage. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="{% static 'store/script.js' %}"></script>
+</body>
+</html>

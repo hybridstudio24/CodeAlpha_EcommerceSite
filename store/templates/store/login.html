@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log in — Foliage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'store/styles.css' %}" />
+  <style>
+    .auth-page { max-width: 380px; margin: 64px auto; padding: 0 24px; }
+    .auth-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .auth-nav .btn { padding: 0.6em 1.2em; font-size: 0.86rem; }
+    .auth-page h1 { margin: 0 0 24px; font-size: 1.9rem; }
+    .auth-page form { display: flex; flex-direction: column; gap: 14px; }
+    .auth-page input {
+      padding: 0.85em 1em;
+      border: 1px solid var(--stone-line);
+      border-radius: var(--radius-s);
+      font: inherit;
+    }
+    .auth-page ul.errorlist { color: var(--clay-dark); font-size: 0.85rem; padding-left: 1.1em; margin: 0; }
+    .auth-page p.helptext { font-size: 0.78rem; color: #6B756E; margin: 2px 0 0; }
+    .auth-switch { margin-top: 20px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-nav">
+      <a href="{% url 'index' %}" class="logo">Foliage</a>
+      <a href="{% url 'index' %}" class="btn btn-ghost">Continue shopping</a>
+    </div>
+    <h1>Log in</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary btn-block">Log in</button>
+    </form>
+    <p class="auth-switch">New here? <a href="{% url 'signup' %}">Create an account</a></p>
+  </div>
+</body>
+</html>
